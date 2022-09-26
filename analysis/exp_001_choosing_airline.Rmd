@@ -15,3 +15,7 @@ file = here("data_raw", "airline_data_2022.zip")
 df2022 = read_csv(file) %>% clean_names()
 
 ```
+
+
+Note: our airline is Southwest.
+Homework for 9/26 - each create an analysis file, mark the author, create a graph of airline flights versus each year for each dataset for our airline, and push this to Git.
