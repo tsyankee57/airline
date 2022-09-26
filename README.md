@@ -1,2 +1,2 @@
 # airline
-Analysis of Bureau of Transportation data
+Analysis of airline data
