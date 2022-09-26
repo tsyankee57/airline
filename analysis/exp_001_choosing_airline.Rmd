@@ -1,0 +1,17 @@
+---
+title: "exp_001_choosing_airline"
+author: "Tyler Yankee"
+date: '2022-09-26'
+output: html_document
+---
+
+## Load the data and relevant packages
+```{r}
+library(tidyverse)
+library(here)
+library(janitor)
+
+file = here("data_raw", "airline_data_2022.zip")
+df2022 = read_csv(file) %>% clean_names()
+
+```
