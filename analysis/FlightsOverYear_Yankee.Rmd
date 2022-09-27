@@ -1,0 +1,41 @@
+---
+title: "FlightsOverYear_Yankee"
+author: "Tyler Yankee"
+date: "9/27/2022"
+output: html_document
+---
+
+## Load data and relevant packages
+```{r}
+library(tidyverse)
+library(here)
+library(janitor)
+
+df2017 = read_csv(here("data_raw", "airline_data_2017.zip")) %>% clean_names()
+df2018 = read_csv(here("data_raw", "airline_data_2018.zip")) %>% clean_names()
+df2019 = read_csv(here("data_raw", "airline_data_2019.zip")) %>% clean_names()
+df2020 = read_csv(here("data_raw", "airline_data_2020.zip")) %>% clean_names()
+df2021 = read_csv(here("data_raw", "airline_data_2021.zip")) %>% clean_names()
+df2022 = read_csv(here("data_raw", "airline_data_2022.zip")) %>% clean_names()
+
+# Make a list of these dataframes so that we can iterate through them later
+# Indexing - 1=2017, 2=2018, 3=2019, 4=2020, 5=2021, 6=2022
+years_list = list(df2017, df2018, df2019, df2020, df2021, df2022)
+
+```
+
+## Break down each year by month and look at flights for Southwest Airlines.
+This could definitely be done better - I just don't have the most time right now.
+Some ideas...
+
+* Use select and join to get one data frame with all the years together, use mutate to add a year variable.
+* Graph this dataframe, facet_wrap on year, and potentially color if that's not a clear enough split, so that it's all on one visualization and labeled rather than what is below.
+```{r}
+years_list = lapply(years_list, filter, carrier_name == "Southwest Airlines Co.", passengers > 0)
+
+for(df in years_list)
+{
+  print(ggplot(df, aes(x = month)) + geom_bar(aes(weight = departures_performed)))
+}
+
+```
