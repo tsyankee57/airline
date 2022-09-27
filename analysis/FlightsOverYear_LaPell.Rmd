@@ -1,0 +1,52 @@
+---
+title: "FlightsOverYear_LaPell"
+author: "Joseph LaPell"
+date: "2022-09-27"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(here)
+```
+
+Loading flight data into variables
+
+```{r}
+df17 = read_csv(here("data_raw", "airline_data_2017.zip"))
+df18 = read_csv(here("data_raw", "airline_data_2018.zip"))
+df19 = read_csv(here("data_raw", "airline_data_2019.zip"))
+df20 = read_csv(here("data_raw", "airline_data_2020.zip"))
+df21 = read_csv(here("data_raw", "airline_data_2021.zip"))
+df22 = read_csv(here("data_raw", "airline_data_2022.zip"))
+```
+
+Filtering dataframes to only include flights from Southwest, and then using piping operator to graph total departures per month.
+
+```{r}
+filter(df17, CARRIER_NAME == "Southwest Airlines Co.") %>% 
+  ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2017") + 
+  xlab("Month") + ylab("Total Departures")
+
+filter(df18, CARRIER_NAME == "Southwest Airlines Co.") %>% 
+  ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2018") + 
+  xlab("Month") + ylab("Total Departures")
+
+filter(df19, CARRIER_NAME == "Southwest Airlines Co.") %>% 
+  ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2019") + 
+  xlab("Month") + ylab("Total Departures")
+
+filter(df20, CARRIER_NAME == "Southwest Airlines Co.") %>% 
+  ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2020") + 
+  xlab("Month") + ylab("Total Departures")
+
+filter(df21, CARRIER_NAME == "Southwest Airlines Co.") %>% 
+  ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2021") + 
+  xlab("Month") + ylab("Total Departures")
+
+filter(df22, CARRIER_NAME == "Southwest Airlines Co.") %>% 
+  ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2022(Up to June)") + 
+  xlab("Month") + ylab("Total Departures")
+```
+
