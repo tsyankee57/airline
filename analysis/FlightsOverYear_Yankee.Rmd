@@ -28,7 +28,7 @@ years_list = list(df2017, df2018, df2019, df2020, df2021, df2022)
 This could definitely be done better - I just don't have the most time right now.
 Some ideas...
 
-* Use select and join to get one data frame with all the years together, use mutate to add a year variable.
+* Use select and join to get one data frame with all the years together (year is already a column) and only relevant info for each year (so departures_performed, month, maybe others?)
 * Graph this dataframe, facet_wrap on year, and potentially color if that's not a clear enough split, so that it's all on one visualization and labeled rather than what is below.
 ```{r}
 years_list = lapply(years_list, filter, carrier_name == "Southwest Airlines Co.", passengers > 0)
@@ -38,4 +38,20 @@ for(df in years_list)
   print(ggplot(df, aes(x = month)) + geom_bar(aes(weight = departures_performed)))
 }
 
+```
+
+
+## Discussion of possibilities for visualizations
+
+Assume to and from LGA.
+
+* passengers over time for the total 6 years - get a time column, month * (year - 2017)
+* could break this up by flight, by destination, etc.
+* choose other airports and see if pattern is the same for your given airport - facet?
+* Is your airline like the other airlines?
+
+## New visualization
+```{r}
+df_complete = rbind(df2017,df2018,df2019,df2020,df2021,df2022) %>%
+  mutate(total_month = month * (12 * (year - 2017 + 1)))
 ```
