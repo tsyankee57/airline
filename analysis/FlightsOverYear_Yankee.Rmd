@@ -51,7 +51,14 @@ Assume to and from LGA.
 * Is your airline like the other airlines?
 
 ## New visualization
+The new complete dataframe combines each year of data; filters to LaGuardia, Southwest Airlines, and flights with passengers; and adds a new column representing the total month since 2017.
 ```{r}
 df_complete = rbind(df2017,df2018,df2019,df2020,df2021,df2022) %>%
-  mutate(total_month = month * (12 * (year - 2017 + 1)))
+  filter(origin == "LGA" | dest == "LGA", carrier_name == "Southwest Airlines Co.", passengers > 0) %>%
+  select(departures_performed, passengers, carrier_name, origin, dest, year, month) %>%
+  mutate(total_month = month + 12*(year - 2017))
+df_complete %>% ggplot(aes(x = total_month)) + 
+  geom_bar(aes(weight = passengers)) + 
+  ggtitle("Passengers on Southwest Airline Flights from LaGuardia, 2017-2022") +
+  xlab("Month (since 2017)") + ylab("Passengers")
 ```
