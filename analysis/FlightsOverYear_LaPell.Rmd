@@ -25,28 +25,34 @@ df22 = read_csv(here("data_raw", "airline_data_2022.zip"))
 Filtering dataframes to only include flights from Southwest, and then using piping operator to graph total departures per month.
 
 ```{r}
-filter(df17, CARRIER_NAME == "Southwest Airlines Co.") %>% 
-  ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2017") + 
+sw17 <- filter(df17, CARRIER_NAME == "Southwest Airlines Co.")  
+  sw17 %>% ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2017") + 
   xlab("Month") + ylab("Total Departures")
 
-filter(df18, CARRIER_NAME == "Southwest Airlines Co.") %>% 
-  ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2018") + 
+sw18 <- filter(df18, CARRIER_NAME == "Southwest Airlines Co.")
+  sw18 %>% ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2018") + 
   xlab("Month") + ylab("Total Departures")
 
-filter(df19, CARRIER_NAME == "Southwest Airlines Co.") %>% 
-  ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2019") + 
+sw19 <- filter(df19, CARRIER_NAME == "Southwest Airlines Co.") 
+  sw19 %>%ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2019") + 
   xlab("Month") + ylab("Total Departures")
 
-filter(df20, CARRIER_NAME == "Southwest Airlines Co.") %>% 
-  ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2020") + 
+sw20 <- filter(df20, CARRIER_NAME == "Southwest Airlines Co.") 
+  sw20 %>% ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2020") + 
   xlab("Month") + ylab("Total Departures")
 
-filter(df21, CARRIER_NAME == "Southwest Airlines Co.") %>% 
-  ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2021") + 
+sw21 <- filter(df21, CARRIER_NAME == "Southwest Airlines Co.") 
+  sw21 %>% ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2021") + 
   xlab("Month") + ylab("Total Departures")
 
-filter(df22, CARRIER_NAME == "Southwest Airlines Co.") %>% 
-  ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2022(Up to June)") + 
+sw22 <- filter(df22, CARRIER_NAME == "Southwest Airlines Co.") 
+  sw22 %>%ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2022(Up to June)") + 
   xlab("Month") + ylab("Total Departures")
 ```
+
+```{r}
+combined <-  rbind(sw17,sw18,sw19,sw20,sw21,sw22) 
+combined %>% mutate()
+```
+
 
