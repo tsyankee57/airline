@@ -62,3 +62,10 @@ df_complete %>% ggplot(aes(x = total_month)) +
   ggtitle("Passengers on Southwest Airline Flights to/from LaGuardia, 2017-2022") +
   xlab("Month (since 2017)") + ylab("Passengers")
 ```
+
+Some thoughts on the above graph...
+
+* The end of 2019 saw a particularly high number of passengers. The end of each year was high in general, but even given that it is high compared to the ends of other years.
+* The abrupt drop in March 2020 due to the COVID shutdown is made painstakingly clear here, especially because we filtered for only flights with some passengers (so no cargo-only flights etc.).
+* In general, the pattern year-over-year remains roughly the same - not counting the time during the pandemic.
+* It seems that passenger levels could be returning to pre-pandemic levels. Would be interested to see the summer 2022 data (this only goes up to June).
