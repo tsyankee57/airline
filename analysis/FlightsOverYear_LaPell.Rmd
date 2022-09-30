@@ -25,34 +25,51 @@ df22 = read_csv(here("data_raw", "airline_data_2022.zip"))
 Filtering dataframes to only include flights from Southwest, and then using piping operator to graph total departures per month.
 
 ```{r}
-sw17 <- filter(df17, CARRIER_NAME == "Southwest Airlines Co.")  
+sw17 <- filter(df17, CARRIER_NAME == "Southwest Airlines Co.", PASSENGERS > 0)  
   sw17 %>% ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2017") + 
   xlab("Month") + ylab("Total Departures")
 
-sw18 <- filter(df18, CARRIER_NAME == "Southwest Airlines Co.")
+sw18 <- filter(df18, CARRIER_NAME == "Southwest Airlines Co.", PASSENGERS > 0)
   sw18 %>% ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2018") + 
   xlab("Month") + ylab("Total Departures")
 
-sw19 <- filter(df19, CARRIER_NAME == "Southwest Airlines Co.") 
+sw19 <- filter(df19, CARRIER_NAME == "Southwest Airlines Co.", PASSENGERS > 0) 
   sw19 %>%ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2019") + 
   xlab("Month") + ylab("Total Departures")
 
-sw20 <- filter(df20, CARRIER_NAME == "Southwest Airlines Co.") 
+sw20 <- filter(df20, CARRIER_NAME == "Southwest Airlines Co.", PASSENGERS > 0) 
   sw20 %>% ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2020") + 
   xlab("Month") + ylab("Total Departures")
 
-sw21 <- filter(df21, CARRIER_NAME == "Southwest Airlines Co.") 
+sw21 <- filter(df21, CARRIER_NAME == "Southwest Airlines Co.", PASSENGERS > 0) 
   sw21 %>% ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2021") + 
   xlab("Month") + ylab("Total Departures")
 
-sw22 <- filter(df22, CARRIER_NAME == "Southwest Airlines Co.") 
+sw22 <- filter(df22, CARRIER_NAME == "Southwest Airlines Co.", PASSENGERS > 0) 
   sw22 %>%ggplot(aes(x = MONTH)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Departures 2022(Up to June)") + 
   xlab("Month") + ylab("Total Departures")
 ```
 
+### Exploratory Vizualization
 ```{r}
-combined <-  rbind(sw17,sw18,sw19,sw20,sw21,sw22) 
-combined %>% mutate()
-```
+combined_clean <-  rbind(sw17,sw18,sw19,sw20,sw21,sw22) %>% mutate(month_count = MONTH + 12 * (YEAR - 2017)) 
+combined = combined_clean
 
+combined %>% ggplot(aes(x = month_count)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Total Departures per Month 2017-Present") + xlab("Month") + ylab("Total Departures")
+```
+This is the total departures each month from 2017 to June of 2022. This show the departures from all of the different recorded airports of flights that contained more then one passenger. 
+
+```{r}
+combined_clean %>% ggplot(aes(x = month_count)) + geom_bar(aes(weight = PASSENGERS)) + ggtitle("SWAir Total Passengers per Month 2017-Present") + xlab("Month") + ylab("Total Passengers")
+```
+Total passengers per month from 2017 to June of 2022.
+
+
+```{r}
+combined_lga = combined_clean
+combined_lga %>% filter(ORIGIN == "LGA" | DEST == "LGA") %>% ggplot(aes(x = month_count)) + geom_bar(aes(weight = DEPARTURES_PERFORMED)) + ggtitle("SWAir Total Departures(LGA) 2017-Present") + xlab("Month") + ylab("Total Departures")
+
+combined_lga %>% filter(ORIGIN == "LGA" | DEST == "LGA") %>% ggplot(aes(x = month_count)) + geom_bar(aes(weight = PASSENGERS)) + ggtitle("SWAir Total Passengers(LGA) 2017-Present") + xlab("Month") + ylab("Total Departures")
+```
+Passengers and Departures, LGA specifically.
 
